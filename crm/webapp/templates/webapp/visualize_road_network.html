@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Network Visualization</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <h1>Road Network Visualization</h1>
+    <div id="map" style="height: 600px;"></div>
+
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([20, 78], 5);  // Adjust the center and zoom level
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Your road data from the Django view
+        const roadData = {{ road_data|safe }};
+
+        // Loop through the road data and plot the lines
+        roadData.forEach(road => {
+            const coordinates = road.coordinates.map(coord => [coord[1], coord[0]]); // Swap to Leaflet format (lat, lon)
+
+            // Add a polyline for each road
+            const polyline = L.polyline(coordinates, { color: 'blue' }).addTo(map);
+
+            // Add a popup with road details
+            polyline.bindPopup(`OSM ID: ${road.osmid}<br>Highway: ${road.highway}`);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- templates/us_cities_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kandra Road Netowrk</title>
+</head>
+<body>
+    <h1>kandra Road Netowrk</h1>
+    <table border="1">
+        <tr>
+            <th>OSM ID</th>
+            <th>Raod Type</th>
+            <th>Road Length</th>
+            <th>Geometry</th>
+        </tr>
+        {% for r in road_network %}
+        <tr>
+            <td>{{ r.osmid }}</td>
+            <td>{{ r.highway }}</td>
+            <td>{{ r.length }}</td>
+            <td>{{ r.geometry }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
