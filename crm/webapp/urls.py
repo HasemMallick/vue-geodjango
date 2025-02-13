@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from rest_framework.routers import DefaultRouter
-from .views import RoadNetworkViewSet
+from .views import RoadNetworkViewSet, GeoJSONUploadView, EntityList
 
 
 
@@ -18,5 +18,14 @@ urlpatterns = [
     path('centerslocationapi', views.centerslocationapi, name='centerslocationapi'),
     path('centersapi', views.centersapi, name='centersapi'),
     path('nyc-streets', views.nyc_streets, name='nyc_streets'),
-    path('nyc-neighborhoods', views.nyc_neighborhoods, name='nyc_neighborhoods')
+    path('nyc-neighborhoods', views.nyc_neighborhoods, name='nyc_neighborhoods'),
+
+    # uploaded geojson
+    path('upload-geojson/', GeoJSONUploadView.as_view(), name='upload-geojson'),
+
+    # point post api
+    path('api/create_entity/', views.create_entity, name='create_entity'),
+
+    # point get api
+    path('entities/', EntityList.as_view(), name='entity-list'),
 ]

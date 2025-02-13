@@ -1,6 +1,8 @@
 # models.py
 from django.db import models
 from django.contrib.gis.db import models  # Import GIS models if using spatial data
+from django.contrib.gis.geos import Point
+
 
 # class USCity(models.Model):
 #     sid = models.IntegerField()  # Assuming 'sid' is a unique identifier
@@ -69,4 +71,23 @@ class NYCNeighborhoods(models.Model):
 
     def __str__(self):
         return self.id
-    
+
+# create a POST api
+class GeoJSONData(models.Model):
+    name = models.CharField(max_length=255)
+    geom = models.GeometryField()  # This will store the geometry in the PostGIS database
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+# point address 
+class Entity(models.Model):
+    address = models.CharField(max_length=255)
+    entity_type = models.CharField(max_length=50)
+    location = models.PointField() 
+
+    def __str__(self):
+        return f"{self.entity_type} at {self.address}"
+
+

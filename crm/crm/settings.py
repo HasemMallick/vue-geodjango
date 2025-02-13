@@ -70,9 +70,16 @@ CACHES = {
         }
 }
 
+# Allow all origins for development (insecure for production)
+CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9000",  # Vue app URL
+    "http://localhost:5173"
 ]
+
+# Allow credentials if needed (e.g., for cookies or Authorization headers)
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'crm.urls'
 
